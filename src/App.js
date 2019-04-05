@@ -1,17 +1,47 @@
 import React, { Component, useRef } from 'react';
-import { AtomicBlockUtils, Editor, EditorState } from 'draft-js'
+import { convertFromRaw, AtomicBlockUtils, Editor, EditorState } from 'draft-js';
+import './App.css';
 import CanvasDraw from "react-canvas-draw";
+
+const rawContent = {
+  blocks: [{
+    text: "I'm just a doc you can edit me.",
+  }, {
+    text: "But you can also draw!!!",
+  }, {
+    type: 'atomic',
+    text: ' ',
+    entityRanges: [{
+      key: '1',
+      offset: 0,
+    }]
+  }, {
+    text: 'Press the button in the top right to insert a new sticky note'
+  }],
+  entityMap: {
+    '1': {
+      type: 'CANVAS',
+      mutability: 'IMMUTABLE',
+      data: {
+        content: ''
+      }
+    }
+  }
+};
 
 const CanvasBlock = ({ contentState, block, blockProps: { onSave, content }, ...rest }) => {
   const canvas = useRef(null);
 
   return <div
+    className="canvas-container"
     onMouseUp={() => {
       const entity = block.getEntityAt(0);
       onSave(contentState.replaceEntityData(entity, { content: canvas.current.getSaveData() }))
     }}
   >
     <CanvasDraw
+      canvasWidth={350}
+      canvasHeight={300}
       saveData={content}
       ref={canvas}
     />
@@ -20,7 +50,7 @@ const CanvasBlock = ({ contentState, block, blockProps: { onSave, content }, ...
 
 class App extends Component {
   state = {
-    editorState: EditorState.createEmpty()
+    editorState: EditorState.createWithContent(convertFromRaw(rawContent))
   }
 
   onChange = editorState => {
@@ -80,7 +110,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={this.insertCanvas}>Insert canvas</button>
+        <button onClick={this.insertCanvas}>&#10000;</button>
         <Editor
           onChange={this.onChange}
           stripPastedStyles

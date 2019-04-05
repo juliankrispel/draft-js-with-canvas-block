@@ -1,5 +1,63 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  background: #999;
+  padding: 3em;
+  height: 100%;
+}
+
 .App {
-  text-align: center;
+  text-align: left;
+  max-width: 430px;
+  min-height: 600px;
+  box-shadow: 0px 10px 20px rgba(0,0,0,.2);
+  background: #fff;
+  color: #666;
+  line-height: 1.5em;
+  padding: 2.2em;
+}
+
+button {
+  font-size: 3em;
+  color: #fff;
+  background: #999;
+  float: right;
+  box-shadow: inset 0px 10px 20px rgba(0,0,0,.1);
+  border-radius: 3px;
+  border: none;
+  margin-top: -3px;
+  border-bottom: 3px solid #333;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+button:hover {
+  margin-top: 0;
+  border-bottom: 1px solid #666;
+  background: #999;
+  box-shadow: inset 0px 10px 20px rgba(0,0,0,.3);
+}
+
+figure {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+canvas {
+  background: transparent;
+}
+
+.canvas-container > div {
+  background: #fff7dc7a !important;
+  border: 1px solid #eee;
+  border-left: 1px solid rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(0,0,0,.13);
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: -2px 4px 6px rgba(0,0,0,.05);
+  transform: rotate(-.5deg);
+  max-width: 100%;
 }
 
 .App-logo {
